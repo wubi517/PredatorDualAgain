@@ -1,6 +1,7 @@
 package com.it_tech613.predator.ui.series;
 
 import android.content.Intent;
+import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.Button;
@@ -58,6 +59,7 @@ public class FragmentSeasons extends MyFragment{
     private RecyclerView seriesRecyclerView;
     private EpisodeListAdapter episodeListAdapter;
     private String TAG=getClass().getSimpleName();
+    private EpisodeModel current_model= new EpisodeModel();
     @Override
     public void onStop() {
         super.onStop();
@@ -157,6 +159,8 @@ public class FragmentSeasons extends MyFragment{
         episodeListAdapter = new EpisodeListAdapter(new ArrayList<>(), new Function2<Integer, EpisodeModel, Unit>() {
             @Override
             public Unit invoke(Integer integer, EpisodeModel episodeModel) {
+
+                current_model = episodeModel;
                 //add recent series
                 checkAddedRecent(MyApp.selectedSeriesModel);
                 Constants.getRecentCatetory(MyApp.series_categories).getSeriesModels().add(0,MyApp.selectedSeriesModel);
@@ -169,29 +173,30 @@ public class FragmentSeasons extends MyFragment{
                 MyApp.instance.getPreference().put(Constants.getRecentSeries(), recent_series_names);
                 Log.e(getClass().getSimpleName(),"added");
 
+                new Thread(()->startMovie()).start();
                 //onclicklistener
-                String episode_url = MyApp.instance.getIptvclient().buildSeriesStreamURL(MyApp.user,MyApp.pass,episodeModel.getStream_id(),episodeModel.getContainer_extension());
-                Log.e(getClass().getSimpleName(),episode_url);
-                int current_player = (int) MyApp.instance.getPreference().get(Constants.getCurrentPlayer());
-                Intent intent;
-                switch (current_player){
-                    case 0:
-                        intent = new Intent(requireContext(), VideoPlayActivity.class);
-                        break;
-                    case 1:
-                        intent = new Intent(requireContext(), VideoIjkPlayActivity.class);
-                        break;
-                    case 2:
-                        intent = new Intent(requireContext(), VideoExoPlayActivity.class);
-                        break;
-                    default:
-                        intent = new Intent(requireContext(), VideoPlayActivity.class);
-                        break;
-                }
-                intent.putExtra("title",episodeModel.getTitle());
-                intent.putExtra("img",episodeModel.getEpisodeInfoModel().getMovie_image());
-                intent.putExtra("url",episode_url);
-                startActivity(intent);
+//                String episode_url = MyApp.instance.getIptvclient().buildSeriesStreamURL(MyApp.user,MyApp.pass,episodeModel.getStream_id(),episodeModel.getContainer_extension());
+//                Log.e(getClass().getSimpleName(),episode_url);
+//                int current_player = (int) MyApp.instance.getPreference().get(Constants.getCurrentPlayer());
+//                Intent intent;
+//                switch (current_player){
+//                    case 0:
+//                        intent = new Intent(requireContext(), VideoPlayActivity.class);
+//                        break;
+//                    case 1:
+//                        intent = new Intent(requireContext(), VideoIjkPlayActivity.class);
+//                        break;
+//                    case 2:
+//                        intent = new Intent(requireContext(), VideoExoPlayActivity.class);
+//                        break;
+//                    default:
+//                        intent = new Intent(requireContext(), VideoPlayActivity.class);
+//                        break;
+//                }
+//                intent.putExtra("title",episodeModel.getTitle());
+//                intent.putExtra("img",episodeModel.getEpisodeInfoModel().getMovie_image());
+//                intent.putExtra("url",episode_url);
+//                startActivity(intent);
                 return null;
             }
         }, (integer, episodeInfoModel) -> {
@@ -214,17 +219,68 @@ public class FragmentSeasons extends MyFragment{
                         if(MyApp.selectedSeriesModel.getSeasonModels()==null || MyApp.selectedSeriesModel.getSeasonModels().size()==0 || MyApp.selectedSeriesModel.getSeasonModels().get(0).getEpisodeModels() == null || MyApp.selectedSeriesModel.getSeasonModels().get(0).getEpisodeModels().size()==0){
                         }else {
                             episodeListAdapter.setEpisodeModels(MyApp.selectedSeriesModel.getSeasonModels().get(0).getEpisodeModels());
+                            MyApp.selectedSeasonModel=MyApp.selectedSeriesModel.getSeasonModels().get(0);
                         }
                     });
         }
         else {
             seasonListAdapter.setSeasonModels(MyApp.selectedSeriesModel.getSeasonModels());
             episodeListAdapter.setEpisodeModels(MyApp.selectedSeriesModel.getSeasonModels().get(0).getEpisodeModels());
+            MyApp.selectedSeasonModel=MyApp.selectedSeriesModel.getSeasonModels().get(0);
         }
         episodeRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         //onclicklistener
         //onFocusListener
         episodeRecyclerView.setAdapter(episodeListAdapter);
+    }
+
+
+    private void startMovie(){
+        String episode_url = "";
+        if(MyApp.is_mac){
+            String response = "",cmd = "";
+            JSONObject jsonObject,js;
+            int season_num = MyApp.selectedSeasonModel.getSeason_number();
+            String series_id = MyApp.selectedSeriesModel.getSeries_id();
+            String str_cmd = "{\"type\":\"series\",\"series_id\":"+series_id+",\"season_num\":"+season_num+"}";
+            Log.e("str_cmd",str_cmd);
+            Log.e("episode_num",current_model.getEpisode_num()+"");
+            cmd = Base64.encodeToString(str_cmd.getBytes(),Base64.DEFAULT).replaceAll("\\s+","").replaceAll("\n","");
+            try {
+                response = MyApp.instance.getIptvclient().macSeriesCmd(cmd,current_model.getEpisode_num()+"");
+                Log.e("macVodCmd",response);
+                jsonObject = new JSONObject(response);
+                js = jsonObject.getJSONObject("js");
+                episode_url = js.getString("cmd");
+                episode_url = episode_url.replaceAll("ffmpeg","").replaceAll("auto","").replaceAll("\\s+","");
+            }catch (Exception e){
+                episode_url = MyApp.instance.getIptvclient().buildSeriesStreamURL(MyApp.user,MyApp.pass,current_model.getStream_id(),current_model.getContainer_extension());
+            }
+            if(episode_url==null ||  episode_url.isEmpty() ||  episode_url.equalsIgnoreCase("null")){
+                episode_url = MyApp.instance.getIptvclient().buildSeriesStreamURL(MyApp.user,MyApp.pass,current_model.getStream_id(),current_model.getContainer_extension());
+            }
+        }else {
+            episode_url = MyApp.instance.getIptvclient().buildSeriesStreamURL(MyApp.user,MyApp.pass,current_model.getStream_id(),current_model.getContainer_extension());
+        }
+        episode_url = episode_url.replaceAll("\\s+","");
+        Log.e(getClass().getSimpleName(),episode_url);
+        int current_player = (int) MyApp.instance.getPreference().get(Constants.getCurrentPlayer());
+        Intent intent;
+        switch (current_player){
+            case 1:
+                intent = new Intent(requireContext(), VideoIjkPlayActivity.class);
+                break;
+            case 2:
+                intent = new Intent(requireContext(), VideoExoPlayActivity.class);
+                break;
+            default:
+                intent = new Intent(requireContext(), VideoPlayActivity.class);
+                break;
+        }
+        intent.putExtra("title",current_model.getTitle());
+        intent.putExtra("img",current_model.getEpisodeInfoModel().getMovie_image());
+        intent.putExtra("url",episode_url);
+        startActivity(intent);
     }
 
     private void checkAddedRecent(SeriesModel showModel) {
