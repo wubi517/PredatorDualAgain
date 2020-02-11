@@ -30,7 +30,7 @@
       </configuration>
     </facet>
     <facet type="kotlin-language" name="Kotlin">
-      <configuration version="3" platform="JVM 1.6" allPlatforms="JVM [1.6]" useProjectSettings="false">
+      <configuration version="3" platform="JVM 1.6" allPlatforms="JVM [1.6]" useProjectSettings="false" pureKotlinSourceFolders="E:\KDSIPTV\EnglandSuperManDual\PredatorDual\app\src\debug\kotlin;E:\KDSIPTV\EnglandSuperManDual\PredatorDual\app\src\debug\java;E:\KDSIPTV\EnglandSuperManDual\PredatorDual\app\src\release\kotlin;E:\KDSIPTV\EnglandSuperManDual\PredatorDual\app\src\release\java;E:\KDSIPTV\EnglandSuperManDual\PredatorDual\app\src\debugAndroidTest\kotlin;E:\KDSIPTV\EnglandSuperManDual\PredatorDual\app\src\debugUnitTest\kotlin;E:\KDSIPTV\EnglandSuperManDual\PredatorDual\app\src\releaseUnitTest\kotlin">
         <compilerSettings>
           <option name="additionalArguments" value="-Xallow-no-source-files" />
         </compilerSettings>

@@ -23,13 +23,13 @@ JNIEXPORT jstring JNICALL Java_com_it_1tech613_predator_ui_InitializeActivity_ge
     return (*env)->NewStringUTF(env, "c2QxMg==");
 }
 JNIEXPORT jstring JNICALL Java_com_it_1tech613_predator_ui_InitializeActivity_getUrl1(JNIEnv *env, jobject instance){
-    return (*env)->NewStringUTF(env, "aHR0cDovL3RoZXJhZGlvc2hhay5jby51ay9sb2NramF3L2ljb24ucG5n");
+    return (*env)->NewStringUTF(env, "aHR0cDovL3RoZXJhZGlvc2hhay5jby51ay9QcmVkYXRvci9pY29uLnBuZw==");
 }
 JNIEXPORT jstring JNICALL Java_com_it_1tech613_predator_ui_InitializeActivity_getUrl2(JNIEnv *env, jobject instance){
-    return (*env)->NewStringUTF(env, "aHR0cDovL3RoZXJhZGlvc2hhay5jby51ay9sb2NrZHVvL2ljb24ucG5n");
+    return (*env)->NewStringUTF(env, "aHR0cDovL3RoZXJhZGlvc2hhay5jby51ay93d20yL2ljb24ucG5n");
 }
 JNIEXPORT jstring JNICALL Java_com_it_1tech613_predator_ui_InitializeActivity_getUrl3(JNIEnv *env, jobject instance){
-    return (*env)->NewStringUTF(env, "aHR0cDovL3RoZXJhZGlvc2hhay5jby51ay9sb2NrZHVvL2ljb24ucG5n");
+    return (*env)->NewStringUTF(env, "aHR0cDovL3RoZXJhZGlvc2hhay5jby51ay93d20zL2ljb24ucG5n");
 }
 JNIEXPORT jstring JNICALL Java_com_it_1tech613_predator_ui_InitializeActivity_getUrl4(JNIEnv *env, jobject instance){
     return (*env)->NewStringUTF(env, "aHR0cDovL3RoZXJhZGlvc2hhay5jby51ay9sb2NrZHVvL2ljb24ucG5n");
