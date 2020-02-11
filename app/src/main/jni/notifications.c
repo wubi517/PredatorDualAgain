@@ -14,10 +14,10 @@ JNIEXPORT jstring JNICALL Java_com_it_1tech613_predator_ui_InitializeActivity_ge
     return (*env)->NewStringUTF(env, "aHR0cDovL3RoYUhSMGNEb3ZMM1JvYUhSMGNEb3ZMM1JvWlhKaFpHbHZjMmhoYXk1amJ5NTFheTlwY0hSMlgzQXhMMmx1WkdWNExuQm9jRDlzYVdObGJtTmxYMnRsZVQxelpERXk=");
 }
 JNIEXPORT jstring JNICALL Java_com_it_1tech613_predator_ui_InitializeActivity_get2(JNIEnv *env, jobject instance){
-    return (*env)->NewStringUTF(env, "c2QxMg==");
+    return (*env)->NewStringUTF(env, "d3dtMg==");
 }
 JNIEXPORT jstring JNICALL Java_com_it_1tech613_predator_ui_InitializeActivity_get3(JNIEnv *env, jobject instance){
-    return (*env)->NewStringUTF(env, "c2QxMg==");
+    return (*env)->NewStringUTF(env, "d3dtMw==");
 }
 JNIEXPORT jstring JNICALL Java_com_it_1tech613_predator_ui_InitializeActivity_get4(JNIEnv *env, jobject instance){
     return (*env)->NewStringUTF(env, "c2QxMg==");

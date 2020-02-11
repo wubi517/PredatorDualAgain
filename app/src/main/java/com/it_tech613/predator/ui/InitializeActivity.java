@@ -85,7 +85,6 @@ public class InitializeActivity extends AppCompatActivity implements View.OnClic
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        num_server = 1;
         if (num_server==1) setContentView(R.layout.activity_initialize);
         else setContentView(R.layout.activity_select_server);
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
@@ -102,7 +101,7 @@ public class InitializeActivity extends AppCompatActivity implements View.OnClic
             server_editor.putString("key2",new String (Base64.decode(get2(), Base64.DEFAULT)));
             server_editor.putString("key3",new String (Base64.decode(get3(), Base64.DEFAULT)));
             server_editor.putString("key4",new String (Base64.decode(get4(), Base64.DEFAULT)));
-//            Log.e("key",new String (Base64.decode(get1(), Base64.DEFAULT)));
+            Log.e("key",new String (Base64.decode(get2(), Base64.DEFAULT)));
             server_editor.apply();
         }catch (Exception e){
             Toast.makeText(InitializeActivity.this, "Server Error!", Toast.LENGTH_SHORT).show();
@@ -160,7 +159,7 @@ public class InitializeActivity extends AppCompatActivity implements View.OnClic
     @Override
     protected void onResume(){
         if(is_video_played && is_create){
-            SelectTypeDlg();
+//            SelectTypeDlg();
         }
         super.onResume();
     }

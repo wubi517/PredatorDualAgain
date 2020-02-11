@@ -82,7 +82,7 @@ public class MyApp extends Application {
     public static MovieModel vod_model;
 
     public static int num_screen=-1;
-    public static int num_server = 1;
+    public static int num_server = 3;
     public static List<String> maindatas;
     public static boolean is_local = false;
     public static boolean is_mac = false;

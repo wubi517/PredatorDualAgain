@@ -164,7 +164,7 @@ public class LoginActivity extends AppCompatActivity  implements View.OnClickLis
             lay_mac.setVisibility(View.VISIBLE);
             mac_address.setText(MyApp.mac_address);
             if (BuildConfig.DEBUG){
-                mac_address.setText("08:C5:E1:AE:15:E1");
+                mac_address.setText("08:84:9D:50:3A:DE");
             }
             btn_change_mode.setText(R.string.press_here_to_login_with_user_pass);
             if (MyApp.instance.getPreference().get(Constants.getMacAddress()) != null) {

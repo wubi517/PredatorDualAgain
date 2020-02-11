@@ -1021,7 +1021,11 @@ public class FragmentLiveTv extends MyFragment implements SurfaceHolder.Callback
             options.add("0");//this option is used to show the first subtitle track
             options.add("--subsdec-encoding");
 
-            libvlc = new LibVLC(requireContext(), options);
+            try{
+                libvlc = new LibVLC(requireContext(), options);
+            }catch (Exception e){
+
+            }
 
             mMediaPlayer = new MediaPlayer(libvlc);
             mMediaPlayer.setEventListener(mPlayerListener);
