@@ -103,3 +103,4 @@
 -keep class tv.danmaku.ijk.media.player.ffmpeg.FFmpegApi { *; }
 
 -keep class com.google.android.exoplayer.** {*;}
+-keep class com.it_tech613.** { *; }

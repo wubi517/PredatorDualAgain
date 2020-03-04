@@ -35,19 +35,19 @@
             tools:ignore="AllowBackup,GoogleAppIndexingWarning,UnusedAttribute">
         <activity
                 android:name="com.it_tech613.predator.ui.EmptyActivity"
-                android:screenOrientation="landscape"
+                android:screenOrientation="fullSensor"
                 android:theme="@style/AppTheme.NoActionBar"/>
         <activity
                 android:name="com.it_tech613.predator.ui.WebViewActivity"
-                android:screenOrientation="landscape"
+                android:screenOrientation="fullSensor"
                 android:theme="@style/AppTheme.NoActionBar" />
         <activity
                 android:name="com.it_tech613.predator.ui.ConnectionErrorActivity"
-                android:screenOrientation="landscape"
+                android:screenOrientation="fullSensor"
                 android:theme="@style/AppTheme.NoActionBar"/>
         <activity
                 android:name="com.it_tech613.predator.ui.InitializeActivity"
-                android:screenOrientation="landscape"
+                android:screenOrientation="fullSensor"
                 android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -58,46 +58,46 @@
         </activity>
         <activity
                 android:name="com.it_tech613.predator.ui.LoginActivity"
-                android:screenOrientation="landscape"
+                android:screenOrientation="fullSensor"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
                 android:name="com.it_tech613.predator.ui.MainActivity"
                 android:label="@string/app_name"
-                android:screenOrientation="landscape"
+                android:screenOrientation="fullSensor"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity android:name="com.it_tech613.predator.ui.TrailerActivity"
-                  android:screenOrientation="landscape"
+                  android:screenOrientation="fullSensor"
                   android:theme="@style/AppTheme.NoActionBar"/>
         <activity
                 android:name="com.it_tech613.predator.ui.VpnActivity"
-                android:screenOrientation="landscape"
+                android:screenOrientation="fullSensor"
                 android:theme="@style/AppTheme.NoActionBar" />
         <activity
                 android:name="com.it_tech613.predator.ui.VideoPlayActivity"
-                android:screenOrientation="landscape"
+                android:screenOrientation="fullSensor"
                 android:theme="@style/AppTheme.NoActionBar" />
 		<activity android:name="com.it_tech613.predator.ui.ExternalVlcActivity"
-                  android:screenOrientation="landscape"
+                  android:screenOrientation="fullSensor"
                   android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name="com.it_tech613.predator.ui.MXPlayerActivity"
-                  android:screenOrientation="landscape"
+                  android:screenOrientation="fullSensor"
                   android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name="com.it_tech613.predator.ui.VideoIjkPlayActivity"
-                  android:screenOrientation="landscape"
+                  android:screenOrientation="fullSensor"
                   android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name="com.it_tech613.predator.ui.LiveIjkPlayActivity"
-                  android:screenOrientation="landscape"
+                  android:screenOrientation="fullSensor"
                   android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name="com.it_tech613.predator.ui.LivePlayActivity"
-                  android:screenOrientation="landscape"
+                  android:screenOrientation="fullSensor"
                   android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name="com.it_tech613.predator.ui.LiveExoPlayActivity"
-                  android:screenOrientation="landscape"
+                  android:screenOrientation="fullSensor"
                   android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name="com.it_tech613.predator.ui.VideoExoPlayActivity"
-                  android:screenOrientation="landscape"
+                  android:screenOrientation="fullSensor"
                   android:theme="@style/AppTheme.NoActionBar"/>
         <service
                 android:name="com.it_tech613.predator.vpn.fastconnect.core.OpenVpnService"

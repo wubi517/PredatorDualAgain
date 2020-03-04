@@ -159,7 +159,7 @@ public class InitializeActivity extends AppCompatActivity implements View.OnClic
     @Override
     protected void onResume(){
         if(is_video_played && is_create){
-//            SelectTypeDlg();
+            SelectTypeDlg();
         }
         super.onResume();
     }
@@ -392,21 +392,17 @@ public class InitializeActivity extends AppCompatActivity implements View.OnClic
 
         selectLoginTypeDlg = new SelectLoginTypeDlg();
         selectLoginTypeDlg.setSelectListener(position -> {
-            Intent intent = new Intent(InitializeActivity.this,LoginActivity.class);
             switch (position){
                 case 1:
                     MyApp.is_mac = false;
-                    intent.putExtra("type",1);
-                    startActivity(intent);
-                    if (num_server==1) finish();
                     break;
                 case 2:
                     MyApp.is_mac = true;
-                    intent.putExtra("type",2);
-                    startActivity(intent);
-                    if (num_server==1) finish();
                     break;
             }
+            Intent intent = new Intent(InitializeActivity.this,LoginActivity.class);
+            startActivity(intent);
+            if (num_server==1) finish();
         });
         selectLoginTypeDlg.show(fm,"fragment_alert");
     }
