@@ -125,6 +125,9 @@ import kotlin.Unit;
 import kotlin.jvm.functions.Function2;
 
 import static android.content.Context.WINDOW_SERVICE;
+import static com.it_tech613.predator.apps.MyApp.INPUT_FILE;
+import static com.it_tech613.predator.apps.MyApp.INPUT_NAME;
+import static com.it_tech613.predator.apps.MyApp.is_recording;
 
 public class FragmentExoLiveTv extends MyFragment implements View.OnClickListener, PlaybackPreparer, PlayerControlView.VisibilityListener{
 
@@ -191,7 +194,7 @@ public class FragmentExoLiveTv extends MyFragment implements View.OnClickListene
     private ChannelAdapter channelAdapter;
     private RecyclerView category_recyclerview, channel_recyclerview;
     private Handler mHandler = new Handler();
-    private LinearLayout ly_bottom,ly_info,ly_resolution,ly_audio,ly_subtitle,ly_fav,ly_tv_schedule;
+    private LinearLayout ly_bottom,ly_info,ly_resolution,ly_audio,ly_subtitle,ly_fav,ly_tv_schedule,ly_rec;
     private TextView txt_title,txt_dec, txt_channel, txt_time_passed, txt_remain_time, txt_last_time, txt_current_dec, txt_next_dec, txt_date, channel_name;
     private ImageView channel_logo, image_clock, image_star;
     private SeekBar seekbar;
@@ -291,6 +294,18 @@ public class FragmentExoLiveTv extends MyFragment implements View.OnClickListene
         });
         ly_resolution.setOnClickListener(v -> {
 
+        });
+
+        ly_rec = view.findViewById(R.id.ly_rec);
+        ly_rec.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(is_recording){
+                    ShowStopDlg();
+                }else {
+                    ShowRecordingDlg();
+                }
+            }
         });
         ly_fav.setOnClickListener(v -> addToFav());
         ly_tv_schedule.setOnClickListener(v -> startActivity(new Intent(requireContext(), WebViewActivity.class)));
@@ -821,12 +836,64 @@ public class FragmentExoLiveTv extends MyFragment implements View.OnClickListene
                     case 4:
                         showInternalPlayers();
                         break;
+                    case 5:
+                        if(is_recording){
+                            ShowStopDlg();
+                        }else {
+                            ShowRecordingDlg();
+                        }
                 }
             }
         });
         packageDlg.show();
     }
 
+    private void ShowRecordingDlg(){
+        INPUT_NAME = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date())+MyApp.fullModels_filter.get(categoryPos).getChannels().get(playChanelPos).getName().replaceAll("\\s+","");
+        Log.e("file_name",INPUT_NAME);
+        RecordingDlg recordingDlg = new RecordingDlg(getContext(), INPUT_NAME, new RecordingDlg.DialogUpdateListener() {
+            @Override
+            public void OnUpdateNowClick(Dialog dialog, String channel_name, int duration,String time,boolean is_checked) {
+                dialog.dismiss();
+                INPUT_NAME = channel_name;
+                RecordingChannels(duration,time,is_checked);
+            }
+
+            @Override
+            public void OnUpdateSkipClick(Dialog dialog, String channel_name, int duration,String time,boolean is_checked) {
+                dialog.dismiss();
+            }
+        });
+        recordingDlg.show();
+    }
+
+
+    private void ShowStopDlg(){
+        StopRecordingDlg stopRecordingDlg = new StopRecordingDlg(getContext(), "",new StopRecordingDlg.DialogUpdateListener() {
+            @Override
+            public void OnUpdateNowClick(Dialog dialog) {
+                dialog.dismiss();
+                StopRecord();
+            }
+
+            @Override
+            public void OnUpdateSkipClick(Dialog dialog) {
+                dialog.dismiss();
+            }
+        });
+        stopRecordingDlg.show();
+    }
+
+    private void RecordingChannels(int duration,String time,boolean is_checked){
+        is_recording = true;
+        INPUT_FILE = contentUri;
+        MyApp.instance.scheduleJob(duration,time,is_checked);
+    }
+
+    private void StopRecord(){
+        is_recording = false;
+        MyApp.instance.stopMyJob();
+    }
 
     @Override
     public void onPause() {

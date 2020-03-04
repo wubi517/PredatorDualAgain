@@ -79,6 +79,9 @@ import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
 import static android.content.Context.WINDOW_SERVICE;
+import static com.it_tech613.predator.apps.MyApp.INPUT_FILE;
+import static com.it_tech613.predator.apps.MyApp.INPUT_NAME;
+import static com.it_tech613.predator.apps.MyApp.is_recording;
 
 public class FragmentLiveTv extends MyFragment implements SurfaceHolder.Callback, IVLCVout.Callback, View.OnClickListener {
 
@@ -107,7 +110,7 @@ public class FragmentLiveTv extends MyFragment implements SurfaceHolder.Callback
     private ChannelAdapter channelAdapter;
     private RecyclerView category_recyclerview, channel_recyclerview;
     private Handler mHandler = new Handler();
-    private LinearLayout ly_bottom,ly_info,ly_resolution,ly_audio,ly_subtitle,ly_fav,ly_tv_schedule,ly_audio_delay;
+    private LinearLayout ly_bottom,ly_rec,ly_resolution,ly_audio,ly_subtitle,ly_fav,ly_tv_schedule,ly_audio_delay;
     private OSDDlg osdDlg;
     long delay_time = 0;
     private TextView txt_title,txt_dec, txt_channel, txt_time_passed, txt_remain_time, txt_last_time, txt_current_dec, txt_next_dec, txt_date, channel_name;
@@ -180,7 +183,8 @@ public class FragmentLiveTv extends MyFragment implements SurfaceHolder.Callback
         //for info bar
         ly_bottom=view.findViewById(R.id.ly_bottom);
         ly_bottom.setVisibility(View.GONE);
-        ly_info=view.findViewById(R.id.ly_info);
+        ly_rec=view.findViewById(R.id.ly_rec);
+        ly_rec.setOnClickListener(this);
         ly_resolution=view.findViewById(R.id.ly_resolution);
         ly_audio=view.findViewById(R.id.ly_audio);
         ly_subtitle=view.findViewById(R.id.ly_subtitle);
@@ -903,6 +907,13 @@ public class FragmentLiveTv extends MyFragment implements SurfaceHolder.Callback
                     case 7:
                         showInternalPlayers();
                         break;
+                    case 8:
+                        if(is_recording){
+                            ShowStopDlg();
+                        }else {
+                            ShowRecordingDlg();
+                        }
+                        break;
                 }
             }
         });
@@ -1191,7 +1202,62 @@ public class FragmentLiveTv extends MyFragment implements SurfaceHolder.Callback
                 osdDlg.show();
                 delayTimer();
                 break;
+            case R.id.ly_rec:
+                if(is_recording){
+                    ShowStopDlg();
+                }else {
+                    ShowRecordingDlg();
+                }
+                break;
         }
+    }
+
+
+    private void ShowRecordingDlg(){
+        INPUT_NAME = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date())+MyApp.fullModels_filter.get(categoryPos).getChannels().get(playChanelPos).getName().replaceAll("\\s+","");
+        Log.e("file_name",INPUT_NAME);
+        RecordingDlg recordingDlg = new RecordingDlg(getContext(), INPUT_NAME, new RecordingDlg.DialogUpdateListener() {
+            @Override
+            public void OnUpdateNowClick(Dialog dialog, String channel_name, int duration,String time,boolean is_checked) {
+                dialog.dismiss();
+                INPUT_NAME = channel_name;
+                RecordingChannels(duration,time,is_checked);
+            }
+
+            @Override
+            public void OnUpdateSkipClick(Dialog dialog, String channel_name, int duration,String time,boolean is_checked) {
+                dialog.dismiss();
+            }
+        });
+        recordingDlg.show();
+    }
+
+
+    private void ShowStopDlg(){
+        StopRecordingDlg stopRecordingDlg = new StopRecordingDlg(getContext(), "",new StopRecordingDlg.DialogUpdateListener() {
+            @Override
+            public void OnUpdateNowClick(Dialog dialog) {
+                dialog.dismiss();
+                StopRecord();
+            }
+
+            @Override
+            public void OnUpdateSkipClick(Dialog dialog) {
+                dialog.dismiss();
+            }
+        });
+        stopRecordingDlg.show();
+    }
+
+    private void RecordingChannels(int duration,String time,boolean is_checked){
+        is_recording = true;
+        INPUT_FILE = contentUri;
+        MyApp.instance.scheduleJob(duration,time,is_checked);
+    }
+
+    private void StopRecord(){
+        is_recording = false;
+        MyApp.instance.stopMyJob();
     }
 
     private void delayTimer(){

@@ -54,6 +54,7 @@ import org.videolan.libvlc.LibVLC;
 import org.videolan.libvlc.Media;
 import org.videolan.libvlc.MediaPlayer;
 
+import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -115,6 +116,7 @@ public class VideoPlayActivity extends AppCompatActivity implements  SeekBar.OnS
     private static final int SURFACE_ORIGINAL = 5;
     private static int CURRENT_SIZE = SURFACE_BEST_FIT;
 
+    boolean is_recording = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -157,6 +159,7 @@ public class VideoPlayActivity extends AppCompatActivity implements  SeekBar.OnS
                 }
             };
         }
+        is_recording = getIntent().getBooleanExtra("is_recording",false);
         mVideoSurfaceFrame.addOnLayoutChangeListener(mOnLayoutChangeListener);
         surfaceView = (SurfaceView) findViewById(R.id.surface_view);
         surfaceView.setOnClickListener(new View.OnClickListener() {
@@ -511,7 +514,13 @@ public class VideoPlayActivity extends AppCompatActivity implements  SeekBar.OnS
 
 
             Log.e("VideoPlay",path);
-            Media m = new Media(libvlc, Uri.parse(path));
+            Media m;
+            if(is_recording){
+                is_live = true;
+                m = new Media(libvlc, Uri.fromFile(new File(path)));
+            }else {
+                m = new Media(libvlc, Uri.parse(path));
+            }
             mMediaPlayer.setMedia(m);
             m.release();
             mMediaPlayer.play();

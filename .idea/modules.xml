@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/PredatorDual.iml" filepath="$PROJECT_DIR$/PredatorDual.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PredatorDual.iml" filepath="$PROJECT_DIR$/PredatorDual.iml" group="PredatorDual" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="PredatorDual/app" />
     </modules>
   </component>
 </project>

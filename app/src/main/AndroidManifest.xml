@@ -106,6 +106,12 @@
                 <action android:name="android.net.VpnService" />
             </intent-filter>
         </service>
+        <service
+            android:name=".apps.MyJobService"
+            android:enabled="true"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
         <meta-data
                 android:name="android.support.VERSION"
                 android:value="26.1.0" />

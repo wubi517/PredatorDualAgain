@@ -312,7 +312,7 @@
                             android:layout_width="0sp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="5sp"
-                            android:layout_weight="0.3"
+                            android:layout_weight="0.25"
                             android:background="@drawable/title_bg"
                             android:paddingLeft="5sp">
                         
@@ -333,8 +333,19 @@
                             android:gravity="center"
                             android:orientation="horizontal">
                         <LinearLayout
-                            android:id="@+id/ly_audio_delay"
+                            android:id="@+id/ly_rec"
                             android:layout_alignParentRight="true"
+                            android:layout_width="36sp"
+                            android:layout_height="36sp"
+                            android:layout_gravity="center">
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/rec_white" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/ly_audio_delay"
+                            android:layout_toLeftOf="@+id/ly_rec"
                             android:layout_width="36sp"
                             android:layout_height="36sp"
                             android:layout_gravity="center">

@@ -34,6 +34,7 @@ import com.it_tech613.predator.ui.movies.FragmentMovieDetail;
 import com.it_tech613.predator.ui.movies.FragmentMovies;
 import com.it_tech613.predator.ui.multi.FragmentMultiScreen;
 import com.it_tech613.predator.ui.multi.PinMultiScreenDlg;
+import com.it_tech613.predator.ui.record.FragmentRecord;
 import com.it_tech613.predator.ui.series.FragmentEpisodes;
 import com.it_tech613.predator.ui.series.FragmentSeasons;
 import com.it_tech613.predator.ui.series.FragmentSeries;
@@ -75,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentList.add(new FragmentSeries());
         fragmentList.add(new FragmentTvGuide());
         fragmentList.add(new FragmentCatchupCategory());
+        fragmentList.add(new FragmentRecord());
         fragmentList.add(new FragmentSettings());
 
         fragmentList.add(new FragmentSeriesHolder());//7
@@ -95,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
         list.add(new SideMenu("Tv Guide"));
         list.add(new SideMenu("Sports Guide"));
         list.add(new SideMenu("Catchup"));
+        list.add(new SideMenu("Record"));
         list.add(new SideMenu("Settings"));
 
         menu_recyclerview.setAdapter(new MenuAdapter(list, this, (sideMenu, position) -> {

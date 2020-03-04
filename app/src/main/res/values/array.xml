@@ -59,6 +59,7 @@
         <item>Screen ratio</item>
         <item>TV Schedule</item>
         <item>Switch Internal Player</item>
+        <item>Recording</item>
     </string-array>
     <string-array name="package_list2">
         <item>Favorite</item>
@@ -66,6 +67,7 @@
         <item>Screen ratio</item>
         <item>TV Schedule</item>
         <item>Switch Internal Player</item>
+        <item>Recording</item>
     </string-array>
     <string-array name="package_list1">
         <item>Add to Fav</item>

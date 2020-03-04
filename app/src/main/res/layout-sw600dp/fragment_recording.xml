@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_lay"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:keepScreenOn="true"
+    tools:context=".ui.record.FragmentRecord">
+    <LinearLayout
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="0sp"
+            android:layout_height="match_parent"
+            android:layout_weight="12"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0sp"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginBottom="5sp"
+                    android:layout_marginLeft="30sp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="RECORDINGS"
+                        android:textColor="@color/white"
+                        android:textSize="30sp" />
+                    <TextView
+                        android:visibility="gone"
+                        android:id="@+id/txt_category"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="INFORMATION ABOUT THE MOVIE"
+                        android:textColor="@color/white"
+                        android:textSize="25dp" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_marginRight="50sp"
+                    android:id="@+id/txt_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:text="19:30"
+                    android:textColor="@color/white"
+                    android:textSize="30sp" />
+            </RelativeLayout>
+            <LinearLayout
+                android:padding="25sp"
+                android:layout_width="match_parent"
+                android:layout_height="0sp"
+                android:layout_weight="6"
+                android:orientation="horizontal">
+                <ListView
+                    android:id="@+id/recording_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:divider="#00000000"
+                    android:dividerHeight="10sp"
+                    android:scrollbars="none"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="false"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

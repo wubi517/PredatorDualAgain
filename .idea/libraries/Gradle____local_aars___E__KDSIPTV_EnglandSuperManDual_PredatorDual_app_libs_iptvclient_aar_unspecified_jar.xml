@@ -1,8 +1,8 @@
 <component name="libraryTable">
-  <library name="Gradle: __local_aars__:E.\KDSIPTV\EnglandSuperManDual\PredatorDual\app\libs\iptvclient.aar:unspecified@jar">
+  <library name="Gradle: __local_aars__:E./KDSIPTV/EnglandSuperManDual/PredatorDual/app/libs/iptvclient.aar:unspecified@jar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b7a3da036b58531acd10808abc0585fd/iptvclient/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b7a3da036b58531acd10808abc0585fd/iptvclient/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a49d4cae8f3b72d50ff9b8675af5cb09/jetified-iptvclient/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a49d4cae8f3b72d50ff9b8675af5cb09/jetified-iptvclient/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

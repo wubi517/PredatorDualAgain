@@ -50,6 +50,8 @@ public class Constants {
     private static final String FAV_VOD_MOVIES = "vod_fav";
     private static final String FAV_SERIES = "series_fav";
 
+    private static final String RECORDING_CHANNELS="recording_channels";
+
     private static final String RECENT_CHANNELS="RECENT_CHANNELS";
     private static final String RECENT_MOVIES="RECENT_MOVIES";
     private static final String RECENT_SERIES="RECENT_SERIES";
@@ -182,6 +184,10 @@ public class Constants {
 
     public static String getMOVIE_FAV() {
         return MOVIE_FAV+ MyApp.firstServer.getValue();
+    }
+
+    public static String getRecordingChannels(){
+        return RECORDING_CHANNELS+MyApp.firstServer.getValue();
     }
 
     public static void setServerTimeOffset(String my_timestamp,String server_timestamp) {
@@ -533,5 +539,27 @@ public class Constants {
 
     public static String getFavInfo() {
         return FAV_INFO+ MyApp.firstServer.getValue();
+    }
+
+    public static String GetCorrectFormatTime(int hour,int min){
+        String current_time="";
+        String shour="";
+        String smin ="";
+        if(hour==0){
+            shour = "00";
+        }else if(hour<10){
+            shour = "0"+hour;
+        }else {
+            shour = hour+"";
+        }
+        if(min==0){
+            smin="00";
+        }else if(min<10){
+            smin = "0"+min;
+        }else {
+            smin = min+"";
+        }
+        current_time = shour+":"+smin;
+        return current_time;
     }
 }
