@@ -1,8 +1,10 @@
 package com.it_tech613.predator.ui;
 
 import android.app.Dialog;
+import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -42,6 +44,7 @@ import com.it_tech613.predator.ui.series.FragmentSeriesHolder;
 import com.it_tech613.predator.ui.settings.FragmentSettings;
 import com.it_tech613.predator.ui.tvGuide.FragmentTvGuide;
 import com.it_tech613.predator.utils.MyFragment;
+import com.it_tech613.predator.utils.Utils;
 import com.it_tech613.predator.vpn.fastconnect.core.OpenConnectManagementThread;
 import com.it_tech613.predator.vpn.fastconnect.core.OpenVpnService;
 import com.it_tech613.predator.vpn.fastconnect.core.VPNConnector;
@@ -96,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
         list.add(new SideMenu("Series"));
         list.add(new SideMenu("Tv Guide"));
         list.add(new SideMenu("Sports Guide"));
+        list.add(new SideMenu("Plex"));
         list.add(new SideMenu("Catchup"));
         list.add(new SideMenu("Record"));
         list.add(new SideMenu("Settings"));
@@ -130,8 +134,25 @@ public class MainActivity extends AppCompatActivity {
                 }
             }else if (sideMenu.getName().equals("Sports Guide")){
                 startActivity(new Intent(this, WebViewActivity.class));
-            }else {
-                if (position>6) position-=1;
+            } else if(sideMenu.getName().equalsIgnoreCase("plex")){
+//                if(Utils.getPlexPackageInfo(this)!=null){
+//                    externalPlxplayer();
+//                }else {
+//                    showExternalPlayerDialog();
+//                }
+                Intent launchIntent = null;
+                try{
+                    launchIntent = getPackageManager().getLaunchIntentForPackage("com.plexapp.android");
+                } catch (Exception ignored) {}
+
+                if(launchIntent == null){
+                    startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri.parse("https://play.google.com/store/apps/details?id=" + "com.plexapp.android")));
+                } else {
+                    startActivity(launchIntent);
+                }
+            }
+            else {
+                if (position>6) position-=2;
                 replaceFragment(fragmentList.get(position),position);
             }
             return null;
@@ -153,6 +174,14 @@ public class MainActivity extends AppCompatActivity {
                 fragmentList.set(1,new FragmentExoLiveTv());
                 break;
         }
+    }
+
+    private void externalPlxplayer(){
+        Intent vlcIntent = new Intent(Intent.ACTION_VIEW);
+        vlcIntent.setPackage("com.plexapp.android");
+        vlcIntent.setComponent(new ComponentName("org.videolan.vlc", "org.videolan.vlc.gui.video.VideoPlayerActivity"));
+//        vlcIntent.putExtra("subtitles_location", "/sdcard/Movies/Fifty-Fifty.srt");
+        startActivity(vlcIntent);
     }
 
     private int selected_item;
